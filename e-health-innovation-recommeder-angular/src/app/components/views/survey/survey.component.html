@@ -1,0 +1,93 @@
+<div class="main-container">
+  <div class="row survey-container">
+
+<!--    Toggle Button-->
+    <div class="col-sm-12"*ngIf="!step1Toggle" (click)="step1Toggle = !step1Toggle">
+      <h1 style="color: white">A 4-Question Survey will Help us Help you</h1>
+      <br>
+    </div>
+    <div class="col-sm-12"*ngIf="!step1Toggle" (click)="step1Toggle = !step1Toggle">
+      <button class="btn-lg btn-dark" >Start Survey</button>
+      <hr style="background-color: cyan;">
+    </div>
+
+<!--    Country-->
+    <div class="col-sm-2" *ngIf="step1Toggle && !step2Toggle">
+      <label class="query-label">Step 1</label>
+    </div>
+    <div class="col-sm-8" *ngIf="step1Toggle  && !step2Toggle">
+      <label class="query-label">I am currently located in:</label>
+    </div>
+    <div class="col-sm-2" *ngIf="step1Toggle  && !step2Toggle">
+      <label class="query-label"></label>
+    </div>
+    <div class="col-sm-12 query-question" *ngIf="step1Toggle && !step2Toggle">
+      <select [(ngModel)]="selectedCountry.id" (change)="step2Toggle = !step2Toggle">
+        <option disabled selected value> Select a country </option>
+        <option *ngFor="let country of countryList" value="{{country.id}}">{{country.name}}</option>
+      </select>
+    </div>
+
+    <!--    Department-->
+    <div class="col-sm-2 " *ngIf="step2Toggle && !step3Toggle">
+      <label class="query-label">Step 2</label>
+    </div>
+    <div class="col-sm-8" *ngIf="step2Toggle && !step3Toggle">
+      <label class="query-label">My department in {{getCountryNameById(selectedCountry.id)}}'s health system is:</label>
+    </div>
+    <div class="col-sm-2" *ngIf="step2Toggle && !step3Toggle">
+      <label class="query-label"></label>
+    </div>
+    <div class="col-sm-12 query-question" *ngIf="step2Toggle && !step3Toggle">
+      <select [(ngModel)]="selectedDepartment.id" (change)="step3Toggle = !step3Toggle">
+        <option disabled selected value> Select a department </option>
+        <option *ngFor="let department of departmentList" value="{{department.id}}">{{department.name}}</option>
+      </select>
+    </div>
+
+    <!--    Occupations-->
+    <div class="col-sm-2" *ngIf="step3Toggle && !step4Toggle">
+      <label class="query-label">Step 3</label>
+    </div>
+    <div class="col-sm-8" *ngIf="step3Toggle && !step4Toggle">
+      <label class="query-label">My occupation in {{getDepartmentNameById(selectedDepartment.id)}} is:</label>
+    </div>
+    <div class="col-sm-2" *ngIf="step3Toggle && !step4Toggle">
+      <label class="query-label"></label>
+    </div>
+    <div class="col-sm-12 query-question" *ngIf="step3Toggle && !step4Toggle">
+      <select [(ngModel)]="selectedOccupation.id" (change)="step4Toggle = !step4Toggle">
+        <option disabled selected value> Select an occupation </option>
+        <option *ngFor="let occupation of occupationList" value="{{occupation.id}}">{{occupation.name}}</option>
+      </select>
+    </div>
+
+    <!--    Interest-->
+    <div class="col-sm-2" *ngIf="step4Toggle">
+      <label class="query-label">Step 4</label>
+    </div>
+    <div class="col-sm-8" *ngIf="step4Toggle">
+      <label class="query-label">I am Interested in:</label>
+    </div>
+    <div class="col-sm-2" *ngIf="step4Toggle">
+      <label class="query-label"></label>
+    </div>
+    <div class="col-sm-12 query-question " *ngIf="step4Toggle">
+      <select multiple>
+        <option disabled selected value> Select an occupation </option>
+        <option>COVID-19</option>
+        <option>Virology</option>
+        <option>Epidimiology</option>
+        <option>Cancer</option>
+        <option>A.I.</option>
+        <option>block-chain</option>
+        <option>prevention</option>
+
+      </select>
+    </div>
+    <div class="col-sm-12" *ngIf="step4Toggle">
+      <button class="btn-dark" routerLink="../l1brary">Submit</button>
+    </div>
+
+  </div>
+</div>

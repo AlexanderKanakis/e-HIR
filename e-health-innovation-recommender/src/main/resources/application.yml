@@ -1,0 +1,6 @@
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5432/ehir_db
+    username: postgres
+    password: Gl@D0$1993Noir
+    pool-size: 30

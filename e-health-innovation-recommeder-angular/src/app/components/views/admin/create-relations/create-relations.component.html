@@ -1,0 +1,59 @@
+<div class="relation-container">
+
+<!--  For Country-->
+  <div class="row country-tag">
+    <div class="col-sm-4 country-drop">
+      <select [(ngModel)]="selectedCountry.id">
+        <option disabled selected value> Select a country </option>
+        <option *ngFor="let country of countryList" value="{{country.id}}">{{country.name}}</option>
+      </select>
+    </div>
+    <div class="col-sm-4 tag-drop">
+      <select [(ngModel)]="selectedTagCountry.id">
+        <option disabled selected value> Select a Tag </option>
+        <option *ngFor="let tag of tagList" value="{{tag.id}}">{{tag.name}}</option>
+      </select>
+    </div>
+    <div class="col-sm-4 country-tag-submit">
+      <button class="btn-dark" (click)="submitCountryTagRelation()">Relate</button>
+    </div>
+  </div>
+
+<!--  For Department-->
+  <div class="row department-tag">
+    <div class="col-sm-4 department-drop">
+      <select [(ngModel)]="selectedDepartment.id">
+        <option disabled selected value> Select a department </option>
+        <option *ngFor="let department of departmentList" value="{{department.id}}">{{department.name}}</option>
+      </select>
+    </div>
+    <div class="col-sm-4 tag-drop">
+      <select [(ngModel)]="selectedTagDepartment.id">
+        <option disabled selected value> Select a Tag </option>
+        <option *ngFor="let tag of tagList" value="{{tag.id}}">{{tag.name}}</option>
+      </select>
+    </div>
+    <div class="col-sm-4 department-tag-submit">
+      <button class="btn-dark" (click)="submitDepartmentTagRelation()">Relate</button>
+    </div>
+  </div>
+
+<!--  For Occupation-->
+  <div class="row occupation-tag">
+    <div class="col-sm-4 occupation-drop">
+      <select [(ngModel)]="selectedOccupation.id">
+        <option disabled selected value> Select a country </option>
+        <option *ngFor="let occupation of occupationList" value="{{occupation.id}}">{{occupation.name}}</option>
+      </select>
+    </div>
+    <div class="col-sm-4 tag-drop">
+      <select [(ngModel)]="selectedTagOccupation.id">
+        <option disabled selected value> Select a Tag </option>
+        <option *ngFor="let tag of tagList" value="{{tag.id}}">{{tag.name}}</option>
+      </select>
+    </div>
+    <div class="col-sm-4 occupation-tag-submit">
+      <button class="btn-dark" (click)="submitOccupationTagRelation()">Relate</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">e-Health Innovation Recommender</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExample03">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="survey">Survey</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="library">Library</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="graph-view">Stats Archives</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="about">About</a>
+      </li>
+    </ul>
+    <div *ngIf="user.name == null" class="btn" routerLink="login">Login</div>
+    <div *ngIf="user.name != null">
+      <div class="btn-dark dropdown-toggle" mat-button [matMenuTriggerFor]="menu">{{user.name}}</div>
+      <mat-menu #menu="matMenu" class="nav-menu">
+        <a mat-menu-item routerLink="admin/create-item">Create Item</a>
+        <a mat-menu-item routerLink="admin/create-relations">Create Relations</a>
+        <a mat-menu-item style="border-top: black solid" (click)="logOut()">Logout</a>
+      </mat-menu>
+    </div>
+  </div>
+</nav>

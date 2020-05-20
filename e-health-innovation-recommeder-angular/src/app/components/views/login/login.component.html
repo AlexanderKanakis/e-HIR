@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+
+</head>
+<body>
+<div class="login-form">
+  <form
+    #f = "ngForm"
+    (ngSubmit)="f.form.valid && submitLogin()"
+    novalidate method="post">
+    <div class="avatar">
+      <img src="/examples/images/avatar.png" alt="Avatar">
+    </div>
+    <h2 class="text-center">Member Login</h2>
+    <div class="form-group">
+      <input type="text"
+             class="form-control"
+             name="email"
+             placeholder="email"
+             required="required"
+             [(ngModel)]="user.email"
+             #email="ngModel" [ngClass]="{'is-invalid': f.submitted && email.invalid}">
+    </div>
+
+      <!--          Email Input Validation-->
+    <div *ngIf="f.submitted && email.invalid" class="invalid-input form-control col-sm-10">
+      <div *ngIf="email.errors?.required" >Please provide an email</div>
+    </div>
+    <div class="form-group">
+      <input type="password"
+             class="form-control"
+             name="password"
+             placeholder="Password"
+             required="required"
+             [(ngModel)]="user.password"
+             #pass="ngModel" [ngClass]="{'is-invalid': f.submitted && pass.invalid}">
+    </div>
+
+    <!--          Email Input Validation-->
+    <div *ngIf="f.submitted && pass.invalid" class="invalid-input form-control col-sm-10">
+      <div *ngIf="pass.errors?.required" >Please provide a password</div>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+    </div>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<div class="item-form-container">
+  <br>
+  <div class="label-container">
+    <label class="main-label"> <h1 style="font-size: 175%">Create New e-Health Innovation Item</h1></label>
+    <hr style="margin-left: 0;">
+  </div>
+  <!--      Form Start-->
+  <form class="contact-form feedback-form"
+        id="item-form"
+        name="form"
+        #f = "ngForm"
+        (ngSubmit)="f.form.valid && submitItem()" novalidate>
+    <div class="row item-form-container">
+      <div class="col-sm-8">
+
+
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Name:</label>
+            <div class="col-sm-10">
+
+  <!--            Name-->
+              <input type="text"
+                     class="form-control"
+                     id="name"
+                     placeholder="Enter Name"
+                     name="name"
+                     [(ngModel)]="view.name"
+                     #name="ngModel" [ngClass]="{'is-invalid': f.submitted && name.invalid}"
+                     required>
+            </div>
+
+  <!--          Name Input Validation-->
+            <div *ngIf="f.submitted && name.invalid" class="invalid-input form-control col-sm-10">
+              <div *ngIf="name.errors?.required" >Please fill a name</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="links">Links:</label>
+            <div class="col-sm-10">
+
+  <!--            Links-->
+              <input type="text"
+                     class="form-control"
+                     id="links"
+                     placeholder="Enter links"
+                     name="links"
+                     (ngModelChange)="checkForLinkSeparation($event)"
+                     [(ngModel)]="view.links"
+                     #links = "ngModel"[ngClass]="{'is-invalid': f.submitted && links.invalid}"
+                     required>
+            </div>
+
+            <!--          Links Input Validation-->
+            <div *ngIf="f.submitted && links.invalid" class="invalid-input form-control col-sm-10">
+              <div *ngIf="links.errors?.required" >Please give at least one link</div>
+            </div>
+          </div>
+
+  <!--        Description-->
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="description">Description</label>
+            <div class="col-sm-10">
+              <editor
+                apiKey="nvyap5n6h748wtdaep39hp8x5u4km0d8s0j5qxssbozsn7ao"
+                initialValue=""
+                [init]="{
+                height: 500,
+                menubar: false,
+                plugins: 'link'}"
+                id="description"
+                name="description"
+                [(ngModel)]="view.description"
+                #desc = "ngModel" [ngClass]="{'is-invalid': f.submitted && desc.invalid}"
+                required>
+              >
+              </editor>
+            </div>
+
+            <!--          Description  Input Validation-->
+            <div *ngIf="f.submitted && desc.invalid" class="invalid-input form-control col-sm-10">
+              <div *ngIf="desc.errors?.required" >Please fill description</div>
+            </div>
+          </div>
+
+
+          <!--        Submit Button-->
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" form="item-form" class="btn btn-default">Submit</button>
+            </div>
+
+        </div>
+
+      </div>
+      <div class="col-sm-4 meta-info">
+        <!--        Additional Data-->
+        <div class="form-group input-group">
+
+<!--            Image-->
+            <div class="col-sm-12">
+              <br>
+              <label><h3>Image:</h3></label>
+            </div>
+            <div class="col-sm-12">
+              <label class="btn btn-default img-upload-btn btn-primary-outline" id="img-display" for="img">
+                <span class="img-btn-symbol">+</span>
+              </label>
+              <input class="img-upload-input btn btn-default" type="file"
+                     value="add"
+                     (change)="onFileSelected($event)"
+                     id="img"
+                     name="img"
+                     required>
+            </div>
+
+<!--          Tag Container-->
+            <div class="col-sm-12">
+              <hr style="width: 75%">
+              <label><h3>Tags:</h3></label>
+            </div>
+
+<!--          Show Tags Button-->
+            <div class="col-sm-3">
+              <label class="tag-list-toggle" (click)="tagContainerToggle = !tagContainerToggle">
+                <p>
+                  Show Tags
+                  <fa-icon *ngIf="!tagContainerToggle" [icon]="faAngleDown"></fa-icon>
+                  <fa-icon *ngIf="tagContainerToggle" [icon]="faAngleUp"></fa-icon>
+                </p>
+              </label>
+            </div>
+
+          <div class="col-sm-4">
+            <select>
+              <option>By Alphabetical Order A-Z</option>
+              <option>By Alphabetical Order Z-A</option>
+              <option>Country-Related Only</option>
+              <option>Department-Related Only</option>
+              <option>Occupation-Related Only</option>
+              <option>Technology-Related Only</option>
+            </select>
+          </div>
+
+<!--          New Tag Input-->
+            <div class="col-sm-5">
+              <input style="float: right" type="text"
+                     class="new-tag-input"
+                     id="new-tag"
+                     placeholder="Search / Enter New Tag"
+                     name="new-tag"
+                     maxlength="30"
+                     (keyup)="filterTags()"
+                     [(ngModel)]="newTag.name">
+              <fa-icon style="float: right" class="btn btn-white new-tag-btn" (click)="addNewTag()" [icon]="faPlusCircle"></fa-icon>
+            </div>
+
+<!--          Tag List-->
+          <div class="col-sm-12">
+            <div class="tag-container" *ngIf="tagContainerToggle">
+              <label class="tag-element"
+                     *ngFor="let tag of tagList"
+                     (click)="selectTagForItem(tag)">{{tag.name}}
+              </label>
+            </div>
+          </div>
+
+<!--          Selected Tags-->
+          <div class="col-sm-12 tag-selected-wrapper">
+            <br>
+            <label>Selected Tags</label>
+            <div class="tag-container tag-selected-container">
+              <label class="tag-element-empty" *ngIf="tagItemList.length == 0">No Tags Selected</label>
+              <label class="tag-element"
+                     *ngFor="let tag of tagItemList"
+                     (click)="removeTagFromItem(tag)"><fa-icon [icon]="faTimesCircle"></fa-icon> {{tag.name}}</label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>

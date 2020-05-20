@@ -1,0 +1,54 @@
+.container-library {
+  color: white;
+  margin-left: 1%;
+
+}
+
+:host {
+}
+
+.item-container {
+  background-color: rgba(-255,-255,-255,0.2);
+  border-bottom: black solid;
+  margin: 0;
+  padding-right: 5%;
+
+}
+.item {
+  margin: 0;
+  padding: 0;
+}
+
+.item :hover {
+
+}
+
+.item-date {
+  text-align: right;
+  float: right;
+}
+
+.library-filters {
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  background-color: rgba(255,255,255,0.05);
+}
+.item-desc {
+  color: darkgray;
+}
+
+.item-image {
+  height: 12vh;
+  width: 12vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
+/*img {*/
+/*  height: 10vh;*/
+/*  width: 10vh;*/
+/*}*/
