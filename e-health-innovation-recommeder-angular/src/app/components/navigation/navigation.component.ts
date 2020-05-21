@@ -22,7 +22,12 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem("user"));
+    let sessionUser = JSON.parse(localStorage.getItem("inUser"));
+
+    if (sessionUser !== null) {
+      this.user = sessionUser;
+    }
+
   }
 
   logOut() {
@@ -30,7 +35,7 @@ export class NavigationComponent implements OnInit {
       name: null,
       privileges: 0
     };
-    localStorage.setItem("user", JSON.stringify(this.user));
+    localStorage.setItem("inUser", JSON.stringify(this.user));
     location.pathname="";
 
   }

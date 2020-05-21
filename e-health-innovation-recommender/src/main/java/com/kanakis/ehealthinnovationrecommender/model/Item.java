@@ -6,13 +6,17 @@ public class Item {
     private final String description;
     private final String links;
     private int imageId;
+    private int ratingSum;
+    private int ratingUsers;
 
-    public Item(int id, String name, String description, String links, int imageId) {
+    public Item(int id, String name, String description, String links, int imageId, int ratingSum, int ratingUsers) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.links = links;
         this.imageId = imageId;
+        this.ratingSum = ratingSum;
+        this.ratingUsers = ratingUsers;
     }
 
     public int getId() {
@@ -39,4 +43,19 @@ public class Item {
         this.imageId = imageId;
     }
 
+    public int getRatingSum() {
+        return ratingSum;
+    }
+
+    public void setRatingSum(int ratingSum) {
+        this.ratingSum = ratingSum;
+    }
+
+    public int getRatingUsers() {
+        return ratingUsers;
+    }
+
+    public void setRatingUsers(int ratingUsers) {
+        this.ratingUsers = ratingUsers;
+    }
 }

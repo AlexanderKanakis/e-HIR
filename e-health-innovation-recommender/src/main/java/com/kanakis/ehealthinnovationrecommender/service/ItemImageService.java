@@ -45,9 +45,12 @@ public class ItemImageService {
         return 1;
     }
 
-    public int updateImageById(int id, ItemImage image) {
-        itemImageDao.updateImageById(id, image);
-        return 1;
+    public int updateImageById(int id, MultipartFile image) throws IOException {
+        ItemImage img = new ItemImage(image.getOriginalFilename(),
+                image.getContentType(),
+                compressBytes(image.getBytes()));
+        return itemImageDao.updateImageById(id, img);
+
     }
 
     public static byte[] compressBytes(byte[] data) {

@@ -1,0 +1,37 @@
+<div class="item-container">
+  <div class="row item-header">
+    <div class="item-title col-sm-10">
+      <h1>{{item.name}}</h1>
+    </div>
+    <div class="col-sm-2" *ngIf="inUser.privileges == 1">
+      <fa-icon class="admin-tool" [icon]="faPlus"
+               [routerLink]="['../../admin/edit-item',itemId]" ></fa-icon>
+      <fa-icon class="admin-tool" [icon]="faTrashAlt" (click)="deleteItem()"></fa-icon>
+    </div>
+  </div>
+
+  <hr style="background-color: white; width:75%; margin:0;">
+
+  <div class="row item-wrapper">
+    <div class="col-sm-8 item-main">
+      <div class="row">
+        <div class="col-sm-8 item-desc" >
+          <h3 [innerHtml]=item.description></h3>
+        </div>
+        <div class="col-sm-4 item-img" [ngStyle]="{ 'background-image': 'url(' + item.image + ')'}">
+
+        </div>
+      </div>
+      <hr style="background-color: white; width:75%; margin:0;">
+      <div class="row item-links">
+        <ol >
+          <li *ngFor="let link of itemLinkList">
+            <a href="{{link}}">{{link}}</a>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+
+</div>

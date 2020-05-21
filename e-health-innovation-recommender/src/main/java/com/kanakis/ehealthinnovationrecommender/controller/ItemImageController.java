@@ -25,7 +25,6 @@ public class ItemImageController {
 
     @PostMapping
     public int insertItem(@RequestBody @Valid @NotNull MultipartFile image) throws IOException {
-
         return itemImageService.insertImage(image);
     }
 
@@ -40,7 +39,7 @@ public class ItemImageController {
     }
 
     @PutMapping(path = "{id}")
-    public int updateImageById(@PathVariable("id") int id, @RequestBody @Valid @NotNull ItemImage image) {
+    public int updateImageById(@PathVariable("id") int id, @RequestBody @Valid @NotNull MultipartFile image) throws IOException{
         return itemImageService.updateImageById(id, image);
     }
 

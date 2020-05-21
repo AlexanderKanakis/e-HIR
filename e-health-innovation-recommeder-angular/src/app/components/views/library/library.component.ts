@@ -51,8 +51,6 @@ export class LibraryComponent implements OnInit {
           alert(`Could not get image: ${item.imageId}`)
         }
       );
-
-
   }
 
   checkForItemImage() {
@@ -65,12 +63,25 @@ export class LibraryComponent implements OnInit {
 
   createSortDescription() {
     for (let item of this.itemList) {
-      item.shortDesc = `${item.description.substring(0,225)}...`
+      let shortDesc = `${item.description.substring(0,225)}...`;
+      item.description = shortDesc;
     }
   }
 
   filterItemsViaUserSurvey() {
 
+  }
+
+  highlightItem(id: number) {
+    document.getElementById(id.toString()).style.backgroundColor = "rgba(255,255,255,0.1)";
+  }
+
+  unhighlightItem(id: number) {
+    document.getElementById(id.toString()).style.backgroundColor = "rgba(255,255,255,0.05)";
+  }
+
+  deleteItem(id: number) {
+    alert();
   }
 
   }

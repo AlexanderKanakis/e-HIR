@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from "../../models/User";
+import {UserInternal} from "../../models/UserInternal";
 import {ApiService} from "../../../shared/api.service";
 import {Router} from "@angular/router";
 
@@ -11,14 +11,11 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
 
-  user: User = {
+  user: UserInternal = {
     name: null,
     email: null,
     password: null,
-    countryID: null,
-    departmentID: null,
-    occupationID: null,
-    privileges: 1
+    privileges: 0
   }
   apiService: ApiService;
 
@@ -40,7 +37,7 @@ export class LoginComponent implements OnInit {
             name : res.name,
             privileges : res.privileges
           }
-          localStorage.setItem("user", JSON.stringify(userSession));
+          localStorage.setItem("inUser", JSON.stringify(userSession));
           location.pathname ="";
         }
         else {

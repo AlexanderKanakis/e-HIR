@@ -7,7 +7,7 @@ import {Tag} from "../components/models/Tag";
 import {Country} from "../components/models/Country";
 import {Department} from "../components/models/Department";
 import {Occupation} from "../components/models/Occupation";
-import {User} from "../components/models/User";
+import {UserInternal} from "../components/models/UserInternal";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class ApiService {
   private allTagsUrl = `${this.baseUrl}/tag`;
   private allUsersInternalUrl = `${this.baseUrl}/user/internal`;
   private allUsersExternalUrl = `${this.baseUrl}/user/external`;
-  private allImagesUrl = `${this.baseUrl}/item-image`;
+  private allImagesUrl = `${this.baseUrl}item-image`;
   private allCountriesUrl = `${this.baseUrl}country`;
   private allDepartmentsUrl = `${this.baseUrl}department`;
   private allOccupationsUrl = `${this.baseUrl}occupation`;
@@ -29,6 +29,7 @@ export class ApiService {
   addItem(item: Item) : Observable<any> {
     return this.http.post(this.allItemsUrl, item)
   }
+
   getAllItems() : Observable<Item[]> {
     return this.http.get<Item[]>(this.allItemsUrl);
   }
@@ -40,6 +41,15 @@ export class ApiService {
   addItemImage(image) {
     return this.http.post(this.allImagesUrl, image)
   }
+
+  updateItemImage(itemId: number, image) {
+    return this.http.put(`${this.allImagesUrl}/${itemId}`, image);
+  }
+
+  deleteItemImage(itemId) {
+    return this.http.delete(`${this.allImagesUrl}/${itemId}`);
+  }
+
   getItemImage(imageId) {
     return this.http.get<ItemImage>(`${this.allImagesUrl}/${imageId}`)
   }
@@ -56,6 +66,10 @@ export class ApiService {
 
   createItemTagRelation(itemId: number, tag: Tag) {
     return this.http.post(`${this.allItemsUrl}/${itemId}/tags`, tag)
+  }
+
+  deleteItemTagRelation(itemId: number) {
+    return this.http.delete(`${this.allItemsUrl}/${itemId}/tags`)
   }
 
   getItemTags(id : number) : Observable<Tag[]> {
@@ -106,7 +120,7 @@ export class ApiService {
     return this.http.get<Occupation[]>(this.allOccupationsUrl);
   }
 
-  loginUser(user: User) {
-    return this.http.post<User>(`${this.allUsersInternalUrl}/login`, user)
+  loginUser(user: UserInternal) {
+    return this.http.post<UserInternal>(`${this.allUsersInternalUrl}/login`, user)
   }
 }

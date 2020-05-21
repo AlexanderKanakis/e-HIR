@@ -21,8 +21,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CreateRelationsComponent} from "./components/views/admin/create-relations/create-relations.component";
 import { LoginComponent } from './components/views/login/login.component';
 import {MatMenuModule} from "@angular/material/menu";
-import {MatMenuItem} from "@angular/material/menu";
-import {MatMenuContent} from "@angular/material/menu";
+import { ItemComponent } from './components/views/item/item.component';
+import { EditItemComponent } from './components/views/admin/edit-item/edit-item.component';
 
 
 const appRouteList: Routes = [
@@ -43,8 +43,16 @@ const appRouteList: Routes = [
     component: AboutComponent
   },
   {
+    path: 'item/:id',
+    component: ItemComponent
+  },
+  {
     path: 'admin/create-item',
     component: CreateItemComponent
+  },
+  {
+    path: 'admin/edit-item/:id',
+    component: EditItemComponent
   },
   {
     path: 'admin/create-relations',
@@ -77,7 +85,9 @@ const appRouteList: Routes = [
     AboutComponent,
     CreateItemComponent,
     CreateRelationsComponent,
-    LoginComponent
+    LoginComponent,
+    ItemComponent,
+    EditItemComponent
   ],
   imports: [
     BrowserModule,

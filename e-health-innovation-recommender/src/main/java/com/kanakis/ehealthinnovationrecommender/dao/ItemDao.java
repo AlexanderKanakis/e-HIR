@@ -22,4 +22,10 @@ public interface ItemDao {
     int insertTagRelationShip(int itemId, Tag tag);
 
     List<Tag> getItemTags(int id);
+
+    double updateRatingById(int id, Item item);
+
+    double selectRatingById(int id);
+
+    int deleteTagRelations(int id);
 }

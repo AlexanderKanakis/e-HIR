@@ -1,0 +1,42 @@
+:host {
+  margin: 0;
+  padding: 0;
+}
+
+body, html{
+  margin: 0;
+  padding: 0;
+}
+
+.item-container {
+  color: white;
+  margin: 2%;
+  padding: 0;
+}
+
+.item-title {
+}
+
+.item-main {
+  margin-top: 2%;
+}
+
+.item-links {
+  margin-top: 2%;
+}
+
+.admin-tool {
+  font-size: 200%;
+  margin: 4%;
+  padding-bottom: 2%;
+  float: right;
+}
+
+.item-img {
+  width: 15vw;
+  height: 15vw;
+  background-color: black;
+  float: right;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

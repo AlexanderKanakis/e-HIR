@@ -40,12 +40,10 @@ CREATE TABLE ehir_item (
     name VARCHAR(100) NOT NULL,
     description VARCHAR(1000000) NOT NULL,
     links VARCHAR(1000) NOT NULL,
-    image_id int
+    image_id int,
+    ratingSum int,
+    ratingUsers int
 );
-
------------------------------------------------------------------------------
-
--- Relation Tables
 
 CREATE TABLE ehir_item_image (
     id SERIAL PRIMARY KEY ,
@@ -53,6 +51,10 @@ CREATE TABLE ehir_item_image (
     type VARCHAR(1000000) NOT NULL,
     bytes bytea NOT NULL
 );
+
+-----------------------------------------------------------------------------
+
+-- Relation Tables
 
 CREATE TABLE ehir_item_tag (
     tag_id int,
@@ -366,7 +368,6 @@ INSERT INTO ehir_occupation_tag (occupation_id, tag_id) VALUES (32, 32);
 INSERT INTO ehir_occupation_tag (occupation_id, tag_id) VALUES (33, 33);
 INSERT INTO ehir_occupation_tag (occupation_id, tag_id) VALUES (34, 34);
 INSERT INTO ehir_occupation_tag (occupation_id, tag_id) VALUES (35, 35);
-
 
 
 

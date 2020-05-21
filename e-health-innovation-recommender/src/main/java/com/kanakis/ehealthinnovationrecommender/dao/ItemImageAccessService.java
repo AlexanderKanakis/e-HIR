@@ -1,6 +1,7 @@
 package com.kanakis.ehealthinnovationrecommender.dao;
 
 import com.kanakis.ehealthinnovationrecommender.model.ItemImage;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -39,30 +40,61 @@ public class ItemImageAccessService implements ItemImageDao {
 
     @Override
     public Optional<ItemImage> selectImageById(int selectionId) {
-        String sql = "SELECT "
-                + "id, "
-                + "name, "
-                + "type , "
-                + "bytes "
-                + "FROM ehir_item_image "
-                + "WHERE id = ?";
-        ItemImage image = jdbcTemplate.queryForObject(sql, new Object[]{selectionId}, (resultSet, i) -> {
-            int imageId = Integer.parseInt(resultSet.getString("id"));
-            String name = resultSet.getString("name");
-            String type = resultSet.getString("type");
-            byte[] bytes = resultSet.getBytes("bytes");
-            return new ItemImage(imageId, name, type, bytes);
-        });
-        return Optional.ofNullable(image);
+        try {
+            String sql = "SELECT "
+                    + "id, "
+                    + "name, "
+                    + "type , "
+                    + "bytes "
+                    + "FROM ehir_item_image "
+                    + "WHERE id = ?";
+            ItemImage image = jdbcTemplate.queryForObject(sql, new Object[]{selectionId}, (resultSet, i) -> {
+                int imageId = Integer.parseInt(resultSet.getString("id"));
+                String name = resultSet.getString("name");
+                String type = resultSet.getString("type");
+                byte[] bytes = resultSet.getBytes("bytes");
+                return new ItemImage(imageId, name, type, bytes);
+            });
+            return Optional.ofNullable(image);
+
+        }
+        catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
     public int deleteImageById(int id) {
-        return 0;
+
+        String sql = "DELETE "
+                + "ehir_item_image "
+                + "WHERE id = ?";
+
+        return jdbcTemplate.update(sql);
     }
 
     @Override
     public int updateImageById(int id, ItemImage image) {
-        return 0;
+        if (id == 0) {
+            return insertImage(image);
+        }
+
+        String sql = "Update "
+                + "ehir_item_image "
+                + "SET "
+                + "name = ?, "
+                + "type = ?, "
+                + "bytes = ? "
+                + "WHERE id = ? "
+                + "RETURNING id";
+
+        jdbcTemplate.queryForObject(sql,
+                new Object[]{image.getName(),image.getType(),image.getPicByte(), id},
+                (resultSet, i) -> {
+                    int imageId = Integer.parseInt(resultSet.getString("id"));
+                    return imageId;
+                });
+
+        return id;
     }
 }

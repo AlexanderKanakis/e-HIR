@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import {ApiService} from "../../../../shared/api.service";
 import {Item} from "../../../models/Item";
 import {Tag} from "../../../models/Tag";
-import { faTimesCircle} from '@fortawesome/free-solid-svg-icons';
+import {ApiService} from "../../../../shared/api.service";
+import {faTimesCircle} from "@fortawesome/free-solid-svg-icons";
 import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
-import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import {faAngleUp} from "@fortawesome/free-solid-svg-icons";
+import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'app-create-item',
-  templateUrl: './create-item.component.html',
-  styleUrls: ['./create-item.component.css'],
+  selector: 'app-edit-item',
+  templateUrl: './edit-item.component.html',
+  styleUrls: ['./edit-item.component.css']
 })
-export class CreateItemComponent implements OnInit {
+export class EditItemComponent implements OnInit {
 
   // Icons
   faTimesCircle = faTimesCircle;
@@ -37,6 +38,8 @@ export class CreateItemComponent implements OnInit {
     name: ""
   }
 
+  itemId: number;
+
   //Img File from input type=file
   selectedFile: File;
 
@@ -48,57 +51,73 @@ export class CreateItemComponent implements OnInit {
   // Toggle Tag Container
   tagContainerToggle: boolean = false;
 
-  constructor(private apiService: ApiService) { }
+  //Get id
+  sub: any;
+  editItemRoute: ActivatedRoute;
+
+  constructor(private apiService: ApiService, editItemRoute: ActivatedRoute) {
+    this.editItemRoute = editItemRoute;
+  }
 
   ngOnInit(): void {
+    this.sub = this.editItemRoute.params.subscribe(params => {
+      this.itemId = params['id'];
+      this.selectItemById();
+      this.selectItemTags()
+
+    });
     this.getAllTags();
   }
 
   submitItem() {
 
     if (this.selectedFile) {
-      this.uploadImage();
+      this.updateImage();
     }
     else {
-      this.uploadItem();
+      this.updateItem();
     }
 
   }
 
-  uploadItem() {
-    this.apiService.addItem(this.view).subscribe(
-        res => {
-          this.uploadItemTagRelations(res, 0);
-        },
-        err => {
-          alert("error")
-        })
+  updateItem() {
+    this.apiService.updateItemById(this.view, this.itemId).subscribe(
+      res => {
+        this.apiService.deleteItemTagRelation(this.itemId).subscribe(
+          res => {
+            this.updateItemTagRelations(this.itemId, 0);
+          }
+        )
+      },
+      err => {
+        alert("error")
+      })
   }
 
-  uploadImage() {
+  updateImage() {
     const uploadImageData = new FormData();
     uploadImageData.append('image', this.selectedFile, this.selectedFile.name)
-    this.apiService.addItemImage(uploadImageData).subscribe(
-        res => {
-          this.view.imageId = res;
-          this.uploadItem()
-        },
-        err => {
-          alert("Could not upload image")
-        })
+    this.apiService.updateItemImage(this.view.imageId, uploadImageData).subscribe(
+      res => {
+        this.view.imageId = res;
+        this.updateItem()
+      },
+      err => {
+        alert("Could not upload image")
+      })
 
   }
 
-  uploadItemTagRelations(itemId: number, tagCounter: number) {
+  updateItemTagRelations(itemId: number, tagCounter: number) {
     let counter: number = tagCounter;
     this.apiService.createItemTagRelation(itemId, this.tagItemList[counter]).subscribe(
       res => {
         counter++;
         if (counter >= this.tagItemList.length) {
-          location.reload();
+          location.assign(`../../item/${this.itemId}`);
         }
         else {
-          this.uploadItemTagRelations(itemId, counter);
+          this.updateItemTagRelations(itemId, counter);
         }
 
       });
@@ -167,5 +186,23 @@ export class CreateItemComponent implements OnInit {
       })
     }
   }
-}
 
+  selectItemById() {
+    this.apiService.getItemById(this.itemId).subscribe(
+      res => {
+        this.view = res
+      },
+      err => {
+        alert("Cannot get item");
+      }
+    )
+  }
+
+  selectItemTags() {
+    this.apiService.getItemTags(this.itemId).subscribe(
+      res => {
+        this.tagItemList = res;
+      }
+    )
+  }
+}

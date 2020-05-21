@@ -17,15 +17,30 @@
 .item {
   margin: 0;
   padding: 0;
+  border: none;
 }
 
-.item :hover {
-
+.item-name {
+  color: white;
 }
+
+
 
 .item-date {
+  color: white;
   text-align: right;
   float: right;
+  height: 100%;
+}
+
+.admin-edit {
+  font-size: 200%;
+  margin: 4%;
+}
+
+.admin-delete {
+  font-size: 200%;
+  margin: 4%;
 }
 
 .library-filters {
@@ -35,9 +50,12 @@
 
 .item {
   background-color: rgba(255,255,255,0.05);
+  width: 100%;
 }
+
 .item-desc {
   color: darkgray;
+  text-align: left;
 }
 
 .item-image {
@@ -47,6 +65,10 @@
   background-position: center;
   background-repeat: no-repeat;
 
+}
+
+.btn-item :hover {
+  background-color: darkslategray;
 }
 /*img {*/
 /*  height: 10vh;*/

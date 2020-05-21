@@ -8,7 +8,11 @@
     <div class="col-sm-8 item-container">
       <br>
       <div *ngFor=" let item of itemList">
-        <div class="row item ">
+        <button class="row item"
+                id="{{item.id}}"
+                (mouseenter)="highlightItem(item.id)"
+                (mouseleave)="unhighlightItem(item.id)"
+                [routerLink]="['../item', item.id]">
           <div class="col-sm-2">
             <div  class="item-image"
             [ngStyle]="{ 'background-image': 'url(' + item.image + ')'}"></div>
@@ -17,12 +21,12 @@
             <div class="row item-name">
               <h2>{{item.name}}</h2>
             </div>
-            <div class="row item-desc" [innerHtml]=item.shortDesc></div>
+            <div class="row item-desc" [innerHtml]=item.description></div>
           </div>
           <div class=" col-sm-2 item-date">
             Date: TBA
           </div>
-        </div>
+        </button>
         <div class="col-sm-12 ">
           <hr style="background-color: rgba(-255, -255, -255, 0.5)">
         </div>

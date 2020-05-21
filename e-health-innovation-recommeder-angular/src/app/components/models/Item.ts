@@ -5,5 +5,6 @@ export interface Item {
   links: string;
   imageId: any;
   image: any;
-  shortDesc: string;
+  ratingSum: number;
+  ratingUsers: number;
 }

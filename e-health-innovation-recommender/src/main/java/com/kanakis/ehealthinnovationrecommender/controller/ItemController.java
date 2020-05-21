@@ -42,9 +42,19 @@ public class ItemController {
         return itemService.selectItemById(id).orElse(null);
     }
 
+    @GetMapping(path = "{id}/tags")
+    public List<Tag> getItemTags(@PathVariable("id") int id) {
+        return itemService.getItemTags(id);
+    }
+
     @DeleteMapping(path = "{id}")
     public int deleteItemById(@PathVariable("id") int id) {
         return  itemService.deleteItemById(id);
+    }
+
+    @DeleteMapping(path = "{id}/tags")
+    public int deleteTagRelations( @PathVariable("id") int itemId) {
+        return itemService.deleteTagRelations(itemId);
     }
 
     @PutMapping(path = "{id}")
@@ -52,8 +62,5 @@ public class ItemController {
         return itemService.updateItemById(id, item);
     }
 
-    @GetMapping(path = "{id}/tags")
-    public List<Tag> getItemTags(@PathVariable("id") int id) {
-        return itemService.getItemTags(id);
-    }
+
 }

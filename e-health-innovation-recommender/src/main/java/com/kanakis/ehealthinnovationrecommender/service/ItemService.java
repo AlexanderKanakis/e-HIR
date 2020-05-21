@@ -61,5 +61,10 @@ public class ItemService {
         return Math.log(determineIDF()/this.itemListLength);
     }
 
+    public int deleteTagRelations(int id) {
+        itemDao.deleteTagRelations(id);
+        return 1;
+    }
+
 
 }
